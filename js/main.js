@@ -12,11 +12,7 @@ function deepFreeze (object) {
 		}
 
 		let descriptor = Object.getOwnPropertyDescriptor(object, prop);
-		
-		if(!descriptor){
-			console.log(prop);
-		}
-
+	
 		descriptor.writable = false;
 		descriptor.enumerable = false;
 
