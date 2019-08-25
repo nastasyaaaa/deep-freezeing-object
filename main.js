@@ -4,21 +4,21 @@ function deepFreeze (object) {
 		throw new Error(`argument must be type of object, ${typeof object} given.`);
 	}
 
-	for(let prop in object){
-		
-		if( typeof object[prop] === 'object' ){
 
-			deepFreeze(object[prop]);
+	Object.entries(object).forEach(([propName, propValue]) => {
+
+		if( typeof object[propName] === 'object' ){
+
+			deepFreeze(object[propName]);
 		}
 
-		let descriptor = Object.getOwnPropertyDescriptor(object, prop);
-	
-		descriptor.writable = false;
-		descriptor.enumerable = false;
+		Object.defineProperty(object, propName, {
+			value : propValue,
+			writable : false,
+			enumerable : false
+		});
 
-		Object.defineProperty(object, prop, descriptor);
-
-	}
+	});
 }
 
 const nana = {
